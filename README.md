@@ -7,15 +7,8 @@ The Python utility to organise your imports!
 impsort will organise your imports alphabetically, grouping by  `import` first and then `from` second. 
 
 
-<table>
-<tr>
-<th>Original</th>
-<th>impsort</th>
-</tr>
-<tr>
-<td>
-
 ```python
+# Not sorted at all
 import numpy as np
 import matplotlib.pyplot as plt
 from os import path
@@ -24,10 +17,8 @@ from delocate.fuse import wheels
 import argparse
 ```
 
-</td>
-<td>
-
 ```python
+# Sorted with impsort
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
@@ -36,9 +27,6 @@ from delocate.fuse import wheels
 from os import path
 ```
 
-<td>
-</tr>
-</table>
 
 
 
