@@ -43,6 +43,16 @@ def test_conditional(tmp_path):
     assert p.read_text() == target_content
 
 
+def test_check_semantic(tmp_path):
+    test_content = ""
+    target_content = ""
+    p = tmp_path / "check_semantic.py"
+    p.write_text(test_content)
+    assert p.read_text() == test_content
+    FORMATTER.format_file(str(p), check_semantic=True)
+    assert p.read_text() == target_content
+
+
 # def test_grouping(tmp_path):
 #     test_content = "import numpy as np\nfrom matplotlib import a, b, c, pyplot\n\nif __name__ == '__main__':\n    print('bad juju')"
 #     target_content = "import numpy as np\nfrom matplotlib import(\n    a,\n    b,\n    c,\n    pyplot\n)\n\nif __name__ == '__main__':\n    print('bad juju')"
