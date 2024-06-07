@@ -25,13 +25,13 @@ def main():
         help="[NON FUNCTIONAL] Ensure the modified code is semantically identical to source.",
     )
     args = parser.parse_args()
-    if os.path.isdir(args.source):
-        print(f"{args.source} is a directory")
-        exit(0)
 
-    f = Formatter()
     try:
-        f.format_file(args.source)
+        f = Formatter()
+        if os.path.isdir(args.source):
+            f.format_directory(args.source)
+        else:
+            f.format_file(args.source)
     except ValueError as e:
         print(e)
 
