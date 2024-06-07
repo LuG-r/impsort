@@ -5,18 +5,15 @@ class Formatter:
     def __init__(self) -> None:
         pass
 
-    def format_file(
-        self,
-        path_to_file: str,
-    ):
+    def format_file(self, path_to_file: str, check_semantic: bool = False):
         if path_to_file[-3:] != ".py":
             raise ValueError("The file provided does not appear to be a Python file")
-        if self.is_check_semantic:
+        if check_semantic:
             with open(path_to_file, "r") as f:
                 code_tree = ast.parse(f.read())
                 self.ast_start = compile(code_tree, filename="<ast>", mode="exec")
         self.organise_packages(self.get_package_info(path_to_file))
-        if self.is_check_semantic:
+        if check_semantic:
             with open(path_to_file, "r") as f:
                 code_tree = ast.parse(f.read())
                 self.ast_end = compile(code_tree, filename="<ast>", mode="exec")
