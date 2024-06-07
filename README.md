@@ -27,7 +27,7 @@ from delocate.fuse import wheels
 from os import path
 ```
 
-impsort will organise the imports but will not move other code around. Comments out lines, including docstrings, will be ignored as will conditional imports.
+impsort will organise the imports but will not move other code around. Commented out lines, including docstrings, will be ignored as will conditional imports.
 
 ```python
 """
