@@ -66,28 +66,38 @@ def test_check_semantic(tmp_path):
 
 
 def test_directory_simple(tmp_path):
-    (tmp_path / "main.py").write_text(
+    tmp_dir = tmp_path / "test"
+    tmp_dir.mkdir()
+    t1 = tmp_dir / "main.py"
+    t2 = tmp_dir / "m1.py"
+    t3 = tmp_dir / "requirements.txt"
+    t4 = tmp_dir / "README.md"
+    t1.write_text(
         "from m1 import game_over\nimport requests\nimport os\nimport argparse\n\ndef main():\n\tprint('main')\n\nif __name__ == '__main__':\n\tmain()"
     )
-    (tmp_path / "m1.py").write_text(
-        "def game_over():\n\tprint('Snake? ...Snake? SNAAAAAKE!!')"
-    )
-    (tmp_path / "requirements.txt").write_text(
-        "requirement1\nrequirement2\nrequirement3"
-    )
-    (tmp_path / "README.md").write_text(
+    t2.write_text("def game_over():\n\tprint('Snake? ...Snake? SNAAAAAKE!!')")
+    t3.write_text("requirement1\nrequirement2\nrequirement3")
+    t4.write_text(
         "# This is where the readme would go\n\n## This is a heading 2\n\nimport sneaky_import\nimport another_sneaky_import"
     )
-    FORMATTER.format_directory(str(tmp_path))
     assert (
-        tmp_path / "main.py"
-    ).read_text() == "import argparse\nimport os\nimport requests\nfrom m1 import game_over\n\ndef main():\n\tprint('main')\n\nif __name__ == '__main__':\n\tmain()"
+        t1.read_text()
+        == "from m1 import game_over\nimport requests\nimport os\nimport argparse\n\ndef main():\n\tprint('main')\n\nif __name__ == '__main__':\n\tmain()"
+    )
+    assert t2.read_text() == "def game_over():\n\tprint('Snake? ...Snake? SNAAAAAKE!!')"
+    assert t3.read_text() == "requirement1\nrequirement2\nrequirement3"
     assert (
-        tmp_path / "m1.py"
-    ).read_text() == "def game_over():\n\tprint('Snake? ...Snake? SNAAAAAKE!!')"
+        t4.read_text()
+        == "# This is where the readme would go\n\n## This is a heading 2\n\nimport sneaky_import\nimport another_sneaky_import"
+    )
+    FORMATTER.format_directory(str(tmp_dir))
     assert (
-        tmp_path / "requirements.txt"
-    ).read_text() == "requirement1\nrequirement2\nrequirement3"
+        t1.read_text()
+        == "import argparse\nimport os\nimport requests\nfrom m1 import game_over\n\ndef main():\n\tprint('main')\n\nif __name__ == '__main__':\n\tmain()"
+    )
+    assert t2.read_text() == "def game_over():\n\tprint('Snake? ...Snake? SNAAAAAKE!!')"
+    assert t3.read_text() == "requirement1\nrequirement2\nrequirement3"
     assert (
-        tmp_path / "README.md"
-    ).read_text() == "# This is where the readme would go\n\n## This is a heading 2\n\nimport sneaky_import\nimport another_sneaky_import"
+        t4.read_text()
+        == "# This is where the readme would go\n\n## This is a heading 2\n\nimport sneaky_import\nimport another_sneaky_import"
+    )
