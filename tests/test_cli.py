@@ -1,7 +1,8 @@
 import os
 import subprocess
 
-ENTRY_POINT = "/Users/lucasg/dev/impsort/src/main.py"
+ENTRY_POINT = "src/impsort/__main__.py"
+
 
 def test_cli_help():
     exit_status = os.system(f"python3 {ENTRY_POINT} -h")
@@ -10,9 +11,9 @@ def test_cli_help():
 
 def test_cli_non_py_input():
     result = subprocess.check_output(
-        [f"python3 {ENTRY_POINT} requirements.txt"], 
-        shell=True, 
-        stderr=subprocess.STDOUT, 
-        text=True
+        [f"python3 {ENTRY_POINT} requirements.txt"],
+        shell=True,
+        stderr=subprocess.STDOUT,
+        text=True,
     )
     assert result == "The file provided does not appear to be a Python file\n"
