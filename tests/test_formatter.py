@@ -1,4 +1,6 @@
-from src.formatter import Formatter
+#!/usr/bin/env python3
+
+from src.impsort.formatter import Formatter
 
 FORMATTER = Formatter()
 
