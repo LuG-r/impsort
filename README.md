@@ -27,6 +27,39 @@ from delocate.fuse import wheels
 from os import path
 ```
 
+impsort will organise the imports but will not move other code around. Comments out lines, including docstrings, will be ignored as will conditional imports.
+
+```python
+"""
+This is an example of a file with a module docstring at the top rather than imports.
+"""
+import numpy as np
+import matplotlib.pyplot as plt
+from os import path
+#import requests
+from delocate.fuse import wheels
+import argparse
+
+
+if test_condition:
+    import os
+```
+
+```python
+"""
+This is an example of a file with a module docstring at the top rather than imports.
+"""
+import argparse
+import matplotlib.pyplot as plt
+import numpy as np
+#import requests
+from delocate.fuse import wheels
+from os import path
+
+
+if test_condition:
+    import os
+```
 
 
 
