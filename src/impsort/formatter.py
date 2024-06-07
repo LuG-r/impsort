@@ -1,14 +1,26 @@
-class Formatter:
-    def __init__(
-        self, is_preview: bool = False, is_check_semantic: bool = False
-    ) -> None:
-        self.is_preview = is_preview
-        self.is_check_semantic = is_check_semantic
+import ast
 
-    def format_file(self, path_to_file: str):
+
+class Formatter:
+    def __init__(self) -> None:
+        pass
+
+    def format_file(
+        self,
+        path_to_file: str,
+    ):
         if path_to_file[-3:] != ".py":
             raise ValueError("The file provided does not appear to be a Python file")
+        if self.is_check_semantic:
+            with open(path_to_file, "r") as f:
+                code_tree = ast.parse(f.read())
+                self.ast_start = compile(code_tree, filename="<ast>", mode="exec")
         self.organise_packages(self.get_package_info(path_to_file))
+        if self.is_check_semantic:
+            with open(path_to_file, "r") as f:
+                code_tree = ast.parse(f.read())
+                self.ast_end = compile(code_tree, filename="<ast>", mode="exec")
+            print(self.ast_start == self.ast_end)
 
     def get_package_info(self, file_path: str) -> object:
         packages = {"import": [], "from": [], "import_lines": [], "lines": []}
