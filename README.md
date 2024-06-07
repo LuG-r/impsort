@@ -67,11 +67,14 @@ if test_condition:
 ```shell
 # clone the repository
 git clone git@github.com:LuG-r/impsort.git
+cd impsort
 ```
 
 ## Usage
-Currently, impsort can only be used against single files. Support for directory level usage is coming soon!
 ```shell
-# run the formatter
-python impsort/src/main.py path/to/file.py
+# run the formatter against a directory
+python src/impsort/__main__.py path/to/directory
+
+# run the formatter against a single file
+python src/impsort/__main__.py path/to/file.py
 ```
