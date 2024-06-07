@@ -5,7 +5,7 @@ from formatter import Formatter
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="impSort",
+        prog="impsort",
         description="The python utility to organise your imports!",
         epilog="",
     )
