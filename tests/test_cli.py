@@ -16,4 +16,4 @@ def test_cli_non_py_input():
         stderr=subprocess.STDOUT,
         text=True,
     )
-    assert result == "The file provided does not appear to be a Python file\n"
+    assert result == "requirements.txt does not appear to be a Python file\n"
