@@ -1,4 +1,5 @@
 import ast
+import os
 
 
 class Formatter:
@@ -7,7 +8,7 @@ class Formatter:
 
     def format_file(self, path_to_file: str, check_semantic: bool = False):
         if path_to_file[-3:] != ".py":
-            raise ValueError("The file provided does not appear to be a Python file")
+            raise ValueError(f"{path_to_file} does not appear to be a Python file")
         if check_semantic:
             with open(path_to_file, "r") as f:
                 code_tree = ast.parse(f.read())
@@ -62,3 +63,11 @@ class Formatter:
                 current_line_number += 1
             if base_content_position < len(packages["lines"]):
                 f.writelines(packages["lines"][base_content_position:])
+
+    def format_directory(self, directory_path: str) -> None:
+        for (dirpath, _, filenames) in os.walk(directory_path):
+            for filename in filenames:
+                try:
+                    self.format_file(os.path.join(dirpath, filename))
+                except ValueError as e:
+                    print(e)
